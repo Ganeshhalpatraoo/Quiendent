@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grocomart</title>
+    <link rel="icon" type="image/x-icon" href={% static 'images/favicon.ico' %}>
+    <link rel="stylesheet" href={% static 'app/css/style.css' %}>
+    <script src="https://kit.fontawesome.com/f6f8f493f3.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <div class="c">
+        <img src={% static 'images/check.gif' %} alt="">
+        <h1 class="heading">Payment <span>Successful!!!</span></h1>
+        <p>your payment of <span> ₹{{order.get_cart_total}}</span> for order id <span>{{order.id}}</span> is Successful!!</p>
+        <p>your order has been confirmed and will be delivered soon!!</p>
+        <a href="{% url 'index' %}" class="btn f">Go to Homepage</a><br>
+        <p><span>Your invoice</span></p>
+        <a href={% url 'invoice' order.id %} class="btn">click here to view invoice</a>
+    </div>
+    <audio src="{% static 'payment_sound/sound.mp3' %}" id="my_audio" ></audio> 
+    <style>
+        .c {
+            text-align: center;
+            margin: 2rem auto;
+        }
+        .c .heading{
+            font-size: 3rem;
+        }
+        .c p{
+            font-size: 2rem;
+        }
+        .c p span{
+            font-weight: bold;
+        }
+        .c img{
+            width: 300px;
+            height: auto;
+        }
+        .c .f{
+            margin-bottom: 3rem;
+        }
+        .c .btn{
+            padding: 1rem 2rem;
+        }
+    </style>
+    <script>
+
+        document.getElementById("my_audio").play();
+    
+    </script>
+</body>
+</html>

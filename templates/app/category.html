@@ -1,0 +1,68 @@
+{% extends "app/base.html" %}
+{% load static %}
+
+{% block content %}
+
+
+
+<section class="category" id="category">
+
+<h1 class="heading">shop by <span>category</span></h1>
+
+<div class="box-container">
+
+    
+    <div class="box">
+        <h3>seria A</h3>
+        <p>upto 44% off</p>
+        <a href="{% url 'category' %}seria A"><img src={% static 'images/Serie-Alogo.png' %} alt="Seria"></a>
+        <a href="{% url 'category' %}seria A" class="btn">shop now</a>
+    </div>
+    
+    <div class="box">
+        <h3>premiera liga</h3>
+        <p>upto 50% off</p>
+        <a href="{% url 'category' %}premiera liga"><img src={% static 'images/p1.png' %} alt="Premiera liga"></a>
+        <a href="{% url 'category' %}premiera liga" class="btn">shop now</a>
+    </div>
+    <div class="box">
+        <h3>ligue1</h3>
+        <p>upto 12% off</p>
+        <a href="{% url 'category' %}ligue 1"><img src={% static 'images/l.png' %} alt=""></a>
+        <a href="{% url 'category' %}ligue 1" class="btn">shop now</a>
+    </div>
+    <div class="box">
+        <h3>bundesliga</h3>
+        <p>upto 20% off</p>
+        <a href="{% url 'category' %}bundesliga"><img src={% static 'images/bund.png' %} alt=""></a>
+        <a href="{% url 'category' %}bundesliga" class="btn">shop now</a>
+    </div>
+    <div class="box">
+        <h3>la liga</h3>
+        <p>upto 25% off</p>
+        <a href="{% url 'category' %}la liga"><img src={% static 'images/laligalogo.svg' %} alt=""></a>
+        <a href="{% url 'category' %}la liga" class="btn">shop now</a>
+    </div>
+    <div class="box">
+        <h3>ePL</h3>
+        <p>upto 40% off</p>
+        <a href="{% url 'category' %}english premier league"><img src={% static 'images/h.png' %} alt=""></a>
+        <a href="{% url 'category' %}english premier league" class="btn">shop now</a>
+    </div>
+    <div class="box">
+        <h3>ISl</h3>
+        <p>upto 15% off</p>
+        <a href="{% url 'category' %}indian super league"><img src={% static 'images/Isl.png' %} alt=""></a>
+        <a href="{% url 'category' %}indian super league" class="btn">shop now</a>
+    </div>
+    <div class="box">
+        <h3>National</h3>
+        <p>upto 46% off</p>
+        <a href="{% url 'category' %}national"><img src={% static 'images/fifa1.png' %} alt=""></a>
+        <a href="{% url 'category' %}national" class="btn">shop now</a>
+    </div>
+</div>
+
+</section>
+
+{% endblock content %}

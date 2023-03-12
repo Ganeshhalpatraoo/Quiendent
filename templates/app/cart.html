@@ -1,0 +1,50 @@
+{% extends "app/base.html" %}
+{% load static %}
+{% block content %}
+  <section class="cart" style="margin-top: 83px; min-height: 100vh;">
+        <div class="box-container">
+
+            {% if order.get_cart_total != 0 %}
+            <a href={% url 'index' %} style="margin-bottom: 2rem;" class="btn"><i class="fa-solid fa-arrow-left-long"></i> Continue Shopping</a>
+            <div class="box-1">
+                <p><span>Items:</span> {{order.get_cart_item}}</p>
+                <p><span>total:</span> ₹{{order.get_cart_total|floatformat:2}}</p>
+                <a href={% url 'checkout' %} style="margin-top: 0;" class="btn">checkout</a>
+            </div>
+            <div class="box-2">
+                <div class="row" style="font-weight: bold;">
+                    <p>product</p>
+                    <p>name</p>
+                    <p>price</p>
+                    <p>quantity</p>
+                    <p>total</p>
+                </div>
+                <hr>
+                
+                {% for item in items %}
+                <div class="row">
+                    <img src={{item.product.imageUrl}} alt="" height="100rem" width="100rem">
+                    <p>{{item.product.name}}</p>
+                    <p>₹{{item.product.d_price|floatformat:2}}</p>
+                    <p>
+                        <a ><i class="fa-solid fa-plus update-cart" data-product="{{item.product.id}}" data-action="add"></i></a>
+                        <span>{{item.quantity}}</span>
+                        <a ><i class="fa-solid fa-minus update-cart" data-product="{{item.product.id}}" data-action="remove"></i></a>
+                    </p>
+                    <p>₹{{item.get_total|floatformat:2}}</p>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="empty">
+                <div>
+                    <a  href="{% url 'products' %}"><img src={% static 'images/cart.png' %} alt="" width="700px  " height="550px">
+                </div>
+            <h1 class="heading"></h1>
+            <a href="{% url 'products' %}" class="btn">Add products</a>
+            </div>
+            {% endif %}
+        </div>
+    </section>
+{% endblock content %}
+ 

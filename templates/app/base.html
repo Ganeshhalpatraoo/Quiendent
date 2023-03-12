@@ -1,0 +1,158 @@
+    <!DOCTYPE html>
+    {% load static %}
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Quiendent</title>
+        <link rel="icon" type="image/x-icon" href={% static 'images/logo.png' %}>
+        <!-- CSS -->
+        <link rel="stylesheet" href={% static 'app/css/style.css' %}>
+        
+        <!-- Icon CDN -->
+        <script src="https://kit.fontawesome.com/f6f8f493f3.js" crossorigin="anonymous"></script>
+        <script>
+            const user = '{{ request.user }}'
+            function getToken(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        const csrftoken = getToken('csrftoken');
+        </script>
+    </head>
+    <body>
+        <!-- header section  -->
+
+    <header>
+        <div class="header">
+
+            <div id="menu-bar" class="fas fa-bars"></div>
+            <a href={% url 'index' %} class="logo"> <i><img src={% static 'images/logoq.png' %}></img ></i>  </a>
+            
+            <nav  class="navbar">
+                <a href={% url 'index' %}>home</a>
+                <a href={% url 'category' %}>category</a>
+                <a href={% url 'products' %}>products</a>
+                <a href={% url 'contact' %}>contact</a>
+                <a href={% url 'about' %}>about</a>
+            </nav>
+
+            
+            
+            {% if request.user.is_authenticated %}
+                <div class="icons">
+                    {% if order.get_cart_item != 0 %}
+                    <a href={% url 'cart' %} data-title="Cart" class="fas fa-shopping-cart"><sup style="font-size: 1.7rem;"><sup>{{order.get_cart_item}}</sup></sup></a>
+                    {% else %}
+                    <a href={% url 'cart' %} data-title="Cart" class="fas fa-shopping-cart"></a>
+                    {% endif %}
+                    
+                    <a href={% url 'profile' %} data-title="Profile" class="fas fa-user-circle"></a>
+                    <a href={% url 'logout' %} data-title="Logout" class="fa-solid fa-right-from-bracket"></a>
+                </div>
+            {% else %}
+                <div>
+                    <a href={% url 'login' %} class="btn">Login</a>
+                </div>
+            {% endif %}
+        </div>
+    </header>
+    <br>
+    {% if messages %}
+    <div class="messages" id="messages">
+        <ul class="msg">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+        </ul>
+        <span><i class="fa-solid fa-xmark" id="cross" onclick="rm()"></i></span>
+    </div>
+    {% endif %}
+    <script>
+        const messages = document.getElementById('messages')
+        function rm(){
+            messages.style.display = 'none';
+        }
+    </script>
+    <!-- Contents of different pages -->
+        {% block content %}
+        
+        {% endblock content %}
+
+    <!-- footer   -->
+
+    <section class="footer" id="footer">
+
+        <div class="box-container">
+
+            <div class="box" style="flex-basis: 420px;">
+                <a href={% url 'index' %} class="logo"> <i><img src={% static 'images/logoq.png' %}></img ></i>  </a>
+                <p>join our newsletter for latest offers</p>
+                <form action="/newsletter/" method="post">
+                    {% csrf_token %}
+                    <input type="email" placeholder="Enter Your Email" name="email" style="text-transform: none;" autocomplete="off" required>
+                    <button type="submit" class="btn">subscribe</button>
+                </form>
+                <p>By subscribing you agree to with our privacy policy and provide consent to receive updates from our company.</p>
+                <div class="share">
+                    <a href="#" class=" fab fa-facebook-f"></a>
+                    <a href="#" class=" fab fa-twitter"></a>
+                    <a href="#" class=" fab fa-instagram"></a>
+                    <a href="#" class=" fab fa-linkedin"></a>
+                </div>
+            </div>
+            
+            <div class="box">
+                <h3>our location</h3>
+                <div class="links">
+                    <a href="#"target="_blank" >mumbai</a>
+                </div>
+            </div>
+
+            <div class="box">
+                <h3>quick links</h3>
+                <div class="links">
+                    <a href={% url 'index' %}>home</a>
+                    <a href={% url 'category' %}>category</a>
+                    <a href={% url 'products' %}>products</a>
+                    <a href={% url 'contact' %}>contact</a>
+                    <a href="#reviews">review</a>
+                    <a href={% url 'about' %}>about</a>
+                </div>
+            </div>
+            <div class="box">
+                <h3>Contact Us</h3>
+                <div class="links">
+                    <span>Email:</span><a href="mailto: quiendent@gmail.com" style="text-transform: none;" >quiendent@gmail.com</a>
+                    <span>Mobile:</span><a href="">1234567890</a>
+                    <span>Phone:</span><a href="">2687 7808 </a>
+                </div>
+            </div>
+            
+
+
+        </div>
+
+        <h1 class="copyright">&#169;2023 <span>Quiendent</span> .inc | All right reserved!</h1>
+
+    </section>
+    <div class="toTop">
+        <a><i class="fa-solid fa-arrow-up"></i></a>
+    </div>
+
+    </body>
+        <script src={% static 'app/js/script.js' %}></script>
+        <script src={% static 'app/js/cart.js' %}></script>
+    </html>

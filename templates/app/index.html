@@ -1,0 +1,179 @@
+{% extends "app/base.html" %}
+{% load static %}
+
+{% block content %}
+<!-- home  -->
+
+<section class="home" id="home" style="margin-top: 200px;">
+    <div class="image">
+        <img src={% static 'images/main.png' %} alt="">
+    </div>
+
+    <div class="content">
+        <span>You gotta change that mindset  </span><h3>
+        <h3> To Take Your Game To Next Level</h3>
+        <a href={% url 'products' %} class="btn">Let's GO</a>
+    </div>
+
+</section>
+
+
+<!-- product  -->
+
+<section class="product" id="product" >
+
+    <h1 class="heading">latest <span>products</span></h1>
+    
+    <div class="box-container">
+
+        {% for product in products %}
+        <div class="box">
+            <span class="discount">-{{product.get_discount|floatformat:1}}%</span>
+            <a href={% url 'products' %}{{product.id}} data-title="{{product.name}}"><img src={{product.imageUrl}} alt=""></a>
+            <h3>{{product.name}}</h3>
+            <div class="stars">
+                <i class="fa fa-star{% if product.averageReview < 0.5 %}-o{% elif product.averageReview >= 0.5 and product.averageReview < 1 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <i class="fa fa-star{% if product.averageReview < 1.5 %}-o{% elif product.averageReview >= 1.5 and product.averageReview < 2 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <i class="fa fa-star{% if product.averageReview < 2.5 %}-o{% elif product.averageReview >= 2.5 and product.averageReview < 3 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <i class="fa fa-star{% if product.averageReview < 3.5 %}-o{% elif product.averageReview >= 3.5 and product.averageReview < 4 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <i class="fa fa-star{% if product.averageReview < 4.5 %}-o{% elif product.averageReview >= 4.5 and product.averageReview < 5 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <span>({{product.countReview}})</span>
+            </div>
+            <div class="price"> ₹{{product.d_price|floatformat:2}} /{{product.unit}} <br><span> ₹{{product.o_price|floatformat:2}} /{{product.unit}}</span> </div>
+            <div class="quantity">
+                <span>quantity : </span>
+                <input type="number" min="1" max="1000" value="1" readonly>
+            </div>
+            <a  class="btn update-cart" data-product="{{product.id}}" data-action="add">add to cart</a>
+        </div>
+          
+        {% endfor %}
+        
+    </div>
+</section>
+<!-- review section starts  -->
+<!--
+<section class="review" id="reviews">
+    
+    <h1 class="heading"> customer's <span>review</span> </h1>
+
+    <div class="box-container">
+
+        <div class="box">
+            <img src={% static 'images/user1.jpg' %} alt="">
+            <h3>Jean Kirstein</h3>
+            <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+            </div>
+            <p class="text"></p>
+        </div>
+
+        <div class="box">
+            <img src={% static 'images/user2.jpg' %} alt="">
+            <h3>sahsa blouse</h3>
+            <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+            </div>
+            <p class="text"> </p>
+        </div>
+
+        <div class="box">
+            <img src={% static 'images/user3.jpg' %} alt="">
+            <h3>Connie Springer</h3>
+            <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+            </div>
+            <p class="text"></p>
+        </div>
+
+    </div>
+
+</section> -->
+
+<section > 
+    <h1 class="heading"> customer's <span>review</span> </h1>
+    <div class="containera">
+        <div class="veiw-boax">
+            <div id="testimonials">
+                
+                <div class="user">
+                    <img src={% static 'images/user3.jpg' %} alt="">
+                    <p>Many people feel that there is a limited amount of abundance, wealth, or chance to succeed in life. Furthermore, there is a solid beleif that if one person succeeds, another must fail.</p>
+                    <h3>Riley Olie</h3>
+                </div>
+                
+                <div class="user space">
+                    <img src={% static 'images/user3.jpg' %} alt="">
+                    <p>Many people feel that there is a limited amount of abundance, wealth, or chance to succeed in life. Furthermore, there is a solid beleif that if one person succeeds, another must fail.</p>
+                    <h3>Steve McCurry</h3>
+                </div>
+                
+                <div class="user">
+                    <img src={% static 'images/user3.jpg' %} alt="">
+                    <p>Many people feel that there is a limited amount of abundance, wealth, or chance to succeed in life. Furthermore, there is a solid beleif that if one person succeeds, another must fail.</p>
+                    <h3>Merlin Nguyen</h3>
+                </div>
+                
+                
+            </div>
+            
+            <div class="controls">
+                <span id="control1"></span>
+                <span id="control2" class="activea"></span>
+                <span id="control3"></span>
+            </div>
+            
+        </div>
+    </div>
+    
+
+
+    <script>
+    
+        var testimonials = document.getElementById('testimonials');
+        var control1 = document.getElementById('control1');
+        var control2 = document.getElementById('control2');
+        var control3 = document.getElementById('control3');
+        
+        
+        control1.onclick=function(){
+            testimonials.style.transform = "translateX(870px)";
+            control1.classList.add("active");
+            control2.classList.remove("active");
+            control3.classList.remove("active");
+        }
+        
+        control2.onclick=function(){
+            testimonials.style.transform = "translateX(0px)";
+            control1.classList.remove("active");
+            control2.classList.add("active");
+            control3.classList.remove("active");
+        }
+        
+        control3.onclick=function(){
+            testimonials.style.transform = "translateX(-870px)";
+            control1.classList.remove("active");
+            control2.classList.remove("active");
+            control3.classList.add("active");
+        }
+        
+        
+        
+        
+    
+    </script>
+    
+
+{% endblock content %}
